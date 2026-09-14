@@ -24,6 +24,8 @@ private:
   GameObject* m_parent = nullptr;
   std::vector<std::unique_ptr<GameObject>> m_children;
   bool m_isAlive = true;
+
+  friend class Scene;
 };
 
 } // namespace eng

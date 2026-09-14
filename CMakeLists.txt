@@ -11,6 +11,8 @@ set(PROJECT_SOURCE_FILES
   source/main.cpp
   source/Game.hpp
   source/Game.cpp
+  source/TestObject.hpp
+  source/TestObject.cpp
 )
 
 add_subdirectory(engine)

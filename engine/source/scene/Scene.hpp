@@ -1,7 +1,10 @@
 #pragma once
 
+#include "GameObject.hpp"
+#include <memory>
 #include <string>
 #include <vector>
+
 namespace eng {
 
 class GameObject;
@@ -11,15 +14,23 @@ public:
   void Update(float deltaTime);
   void Clear();
 
-  GameObject* CreateObject(const std::string name,
+  GameObject* CreateObject(const std::string& name,
                            GameObject* parent = nullptr);
 
   template <typename T, typename = typename std::enable_if_t<
                             std::is_base_of_v<GameObject, T>>>
-  T* CreateObject(const std::string name, GameObject* parent = nullptr);
+  T* CreateObject(const std::string name, GameObject* parent = nullptr) {
+
+    auto obj = new T();
+    obj->SetName(name);
+    SetParent(obj, parent);
+    return obj;
+  }
+
+  bool SetParent(GameObject* obj, GameObject* parent);
 
 private:
-  std::vector<GameObject> m_objects;
+  std::vector<std::unique_ptr<GameObject>> m_objects;
 };
 
 } // namespace eng
