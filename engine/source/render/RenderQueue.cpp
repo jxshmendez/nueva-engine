@@ -2,6 +2,7 @@
 #include "Material.hpp"
 #include "Mesh.hpp"
 #include "graphics/GraphicsAPI.hpp"
+#include "graphics/ShaderProgram.hpp"
 
 namespace eng {
 
@@ -13,6 +14,8 @@ void RenderQueue::Draw(GraphicsAPI& graphicsAPI) {
 
   for (auto& command : m_commands) {
     graphicsAPI.BindMaterial(command.material);
+    command.material->GetShaderProgram()->SetUniform("uModel",
+                                                     command.modelMatrix);
     graphicsAPI.BindMesh(command.mesh);
     graphicsAPI.DrawMesh(command.mesh);
   }

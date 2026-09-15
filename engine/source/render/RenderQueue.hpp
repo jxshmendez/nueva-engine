@@ -1,7 +1,8 @@
 #pragma once
 
-#include "graphics/GraphicsAPI.hpp"
+#include <glm/mat4x4.hpp>
 #include <vector>
+
 namespace eng {
 
 class Mesh;
@@ -11,6 +12,7 @@ class GraphicsAPI;
 struct RenderCommand {
   Mesh* mesh = nullptr;
   Material* material = nullptr;
+  glm::mat4 modelMatrix;
 };
 
 class RenderQueue {

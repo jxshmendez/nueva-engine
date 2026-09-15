@@ -16,6 +16,8 @@ void Material::SetParam(const std::string& name, float v0, float v1) {
   m_float2Params[name] = {v0, v1};
 }
 
+ShaderProgram* Material::GetShaderProgram() { return m_shaderProgram.get(); }
+
 void Material::Bind() {
   if (!m_shaderProgram) {
     return;
