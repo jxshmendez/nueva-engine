@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Component.hpp"
 #include <glm/mat4x4.hpp>
 #include <glm/vec3.hpp>
 #include <memory>
@@ -18,6 +19,8 @@ public:
   GameObject* GetParent();
   bool isAlive();
   void MarkForDestroy();
+
+  void AddComponent(Component* component);
 
   const glm::vec3& GetPosition() const;
   void SetPosition(const glm::vec3& pos);
@@ -38,6 +41,7 @@ private:
   std::string m_name;
   GameObject* m_parent = nullptr;
   std::vector<std::unique_ptr<GameObject>> m_children;
+  std::vector<std::unique_ptr<Component>> m_components;
   bool m_isAlive = true;
 
   glm::vec3 m_position = glm::vec3(0.0f);

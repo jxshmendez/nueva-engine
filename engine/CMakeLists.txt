@@ -22,6 +22,10 @@ add_library(Engine
         source/scene/GameObject.cpp
         source/scene/Scene.hpp
         source/scene/Scene.cpp
+        source/scene/Component.hpp
+        source/scene/Component.cpp
+        source/scene/components/MeshComponent.hpp
+        source/scene/components/MeshComponent.cpp
         source/eng.hpp
         vendor/include/glad.c
         vendor/include/stb_image.cpp
