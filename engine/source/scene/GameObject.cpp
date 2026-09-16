@@ -4,6 +4,12 @@
 namespace eng {
 
 void GameObject::Update(float deltaTime) {
+
+  for (auto& component : m_components) {
+
+    component->Update(deltaTime);
+  }
+
   for (auto it = m_children.begin(); it != m_children.end();) {
     if ((*it)->isAlive()) {
       (*it)->Update(deltaTime);
@@ -19,6 +25,12 @@ void GameObject::SetName(const std::string& name) { m_name = name; }
 GameObject* GameObject::GetParent() { return m_parent; }
 bool GameObject::isAlive() { return m_isAlive; }
 void GameObject::MarkForDestroy() { m_isAlive = false; }
+
+void GameObject::AddComponent(Component* component) {
+
+  m_components.emplace_back(component);
+  component->m_owner = this;
+}
 
 const glm::vec3& GameObject::GetPosition() const { return m_position; }
 
