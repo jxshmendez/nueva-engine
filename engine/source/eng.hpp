@@ -12,4 +12,5 @@
 #include "scene/Component.hpp"
 #include "scene/GameObject.hpp"
 #include "scene/Scene.hpp"
+#include "scene/components/CameraComponent.hpp"
 #include "scene/components/MeshComponent.hpp"

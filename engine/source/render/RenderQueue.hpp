@@ -15,6 +15,11 @@ struct RenderCommand {
   glm::mat4 modelMatrix;
 };
 
+struct CameraData {
+  glm::mat4 viewMatrix;
+  glm::mat4 projectMatrix;
+};
+
 class RenderQueue {
 public:
   void Submit(const RenderCommand& command);
