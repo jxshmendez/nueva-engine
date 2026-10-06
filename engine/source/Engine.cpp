@@ -5,6 +5,7 @@
 #include "Engine.hpp"
 #include "input/InputManager.hpp"
 #include "render/RenderQueue.hpp"
+#include "scene/components/CameraComponent.hpp"
 #include <iostream>
 
 namespace eng {
@@ -17,6 +18,26 @@ void keyCallback(GLFWwindow* window, int key, int, int action, int) {
   } else if (action == GLFW_RELEASE) {
     inputManager.SetKeyPressed(key, false);
   }
+}
+
+void mouseButtonCallback(GLFWwindow* window, int button, int action, int) {
+
+  auto& inputManager = eng::Engine::GetInstance().GetInputManager();
+  if (action == GLFW_PRESS) {
+    inputManager.SetMouseButtonPressed(button, true);
+  } else if (action == GLFW_RELEASE) {
+    inputManager.SetMouseButtonPressed(button, false);
+  }
+}
+
+void cursorPositionCallback(GLFWwindow* window, double xpos, double ypos) {
+
+  auto& inputManager = eng::Engine::GetInstance().GetInputManager();
+
+  inputManager.SetMousePositionOld(inputManager.GetMousePositionCurrent());
+
+  glm::vec2 currentPos(static_cast<float>(xpos), static_cast<float>(ypos));
+  inputManager.SetMousePositionCurrent(currentPos);
 }
 
 Engine& Engine::GetInstance() {
@@ -57,6 +78,8 @@ bool Engine::Init(int width, int height) {
   }
 
   glfwSetKeyCallback(m_window, keyCallback);
+  glfwSetMouseButtonCallback(m_window, mouseButtonCallback);
+  glfwSetCursorPosCallback(m_window, cursorPositionCallback);
 
   return m_application->Init();
 }
@@ -83,9 +106,32 @@ void Engine::Run() {
     m_graphicsAPI.SetClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     m_graphicsAPI.ClearBuffers();
 
-    m_renderQueue.Draw(m_graphicsAPI);
+    CameraData cameraData;
+
+    int width, height = 0;
+    glfwGetWindowSize(m_window, &width, &height);
+    float aspect = static_cast<float>(width) / static_cast<float>(height);
+
+    if (m_currentScene) {
+
+      if (auto cameraObject = m_currentScene->GetMainCamera()) {
+
+        auto cameraComponent = cameraObject->GetComponent<CameraComponent>();
+        if (cameraComponent) {
+
+          cameraData.viewMatrix = cameraComponent->GetViewMatrix();
+          cameraData.projectionMatrix =
+              cameraComponent->GetProjectionMatrix(aspect);
+        }
+      }
+    }
+
+    m_renderQueue.Draw(m_graphicsAPI, cameraData);
 
     glfwSwapBuffers(m_window);
+
+    m_inputManager.SetMousePositionOld(
+        m_inputManager.GetMousePositionCurrent());
   }
 }
 
@@ -108,5 +154,9 @@ InputManager& Engine::GetInputManager() { return m_inputManager; }
 GraphicsAPI& Engine::GetGraphicsAPI() { return m_graphicsAPI; }
 
 RenderQueue& Engine::GetRenderQueue() { return m_renderQueue; }
+
+void Engine::SetScene(Scene* scene) { m_currentScene.reset(scene); }
+
+Scene* Engine::GetScene() { return m_currentScene.get(); }
 
 } // namespace eng

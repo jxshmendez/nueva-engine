@@ -28,6 +28,8 @@ add_library(Engine
         source/scene/components/MeshComponent.cpp
         source/scene/components/CameraComponent.hpp
         source/scene/components/CameraComponent.cpp
+        source/scene/components/PlayerControllerComponent.hpp
+        source/scene/components/PlayerControllerComponent.cpp
         source/eng.hpp
         vendor/include/glad.c
         vendor/include/stb_image.cpp

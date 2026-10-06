@@ -11,6 +11,8 @@ class Mesh;
 
 class MeshComponent : public Component {
 
+  COMPONENT(MeshComponent)
+
 public:
   MeshComponent(std::shared_ptr<Material>& material,
                 std::shared_ptr<Mesh>& mesh);
