@@ -13,10 +13,12 @@ TestObject::TestObject() {
     out vec3 vColor;
 
     uniform mat4 uModel;
+    uniform mat4 uView;
+    uniform mat4 uProjection;
 
     void main() {
       vColor = color;
-      gl_Position = uModel * vec4(position, 1.0);
+      gl_Position = uProjection * uView * uModel * vec4(position, 1.0);
     }
   )";
 
@@ -66,6 +68,7 @@ TestObject::TestObject() {
 void TestObject::Update(float deltaTime) {
   eng::GameObject::Update(deltaTime);
 
+#if 0
   auto position = GetPosition();
   auto& input = eng::Engine::GetInstance().GetInputManager();
 
@@ -83,4 +86,5 @@ void TestObject::Update(float deltaTime) {
     position.y -= 0.001f;
   }
   SetPosition(position);
+#endif
 }
