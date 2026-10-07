@@ -22,3 +22,9 @@ include_directories(
 add_executable(EcijaEngine  ${PROJECT_SOURCE_FILES})
 
 target_link_libraries(EcijaEngine PRIVATE Engine)
+
+add_custom_command(TARGET EcijaEngine POST_BUILD
+  COMMAND ${CMAKE_COMMAND} -E copy_directory
+    ${CMAKE_SOURCE_DIR}/assets
+    $<TARGET_FILE_DIR:EcijaEngine>/assets
+)

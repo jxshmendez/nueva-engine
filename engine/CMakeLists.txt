@@ -1,6 +1,13 @@
 find_package(OpenGL REQUIRED)
 find_package(glfw3 3.3 REQUIRED)
 
+set(ASSETS_DIR "${CMAKE_SOURCE_DIR}/assets")
+
+configure_file(
+  ${CMAKE_CURRENT_SOURCE_DIR}/config.h.in
+  ${CMAKE_CURRENT_BINARY_DIR}/config.h
+)
+
 add_library(Engine
         source/Engine.hpp
         source/Engine.cpp
@@ -31,6 +38,8 @@ add_library(Engine
         source/scene/components/PlayerControllerComponent.hpp
         source/scene/components/PlayerControllerComponent.cpp
         source/eng.hpp
+        source/io/FileSystem.hpp
+        source/io/FileSystem.cpp
         vendor/include/glad.c
         vendor/include/stb_image.cpp
 )
@@ -39,6 +48,8 @@ target_include_directories(Engine PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/source
         ${CMAKE_CURRENT_SOURCE_DIR}/vendor/include
 )
+
+target_include_directories(Engine PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
 
 target_link_libraries(Engine PUBLIC
         OpenGL::GL

@@ -156,6 +156,8 @@ GraphicsAPI& Engine::GetGraphicsAPI() { return m_graphicsAPI; }
 
 RenderQueue& Engine::GetRenderQueue() { return m_renderQueue; }
 
+FileSystem& Engine::GetFileSystem() { return m_fileSystem; }
+
 void Engine::SetScene(Scene* scene) { m_currentScene.reset(scene); }
 
 Scene* Engine::GetScene() { return m_currentScene.get(); }
