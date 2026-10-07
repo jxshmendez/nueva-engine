@@ -2,8 +2,23 @@
 #include "TestObject.hpp"
 #include "scene/components/CameraComponent.hpp"
 #include <GLFW/glfw3.h>
+#include <iostream>
+
+#include <stb_image.h>
 
 bool Game::Init() {
+
+  auto& fs = eng::Engine::GetInstance().GetFileSystem();
+  auto path = fs.GetAssetsFolder() / "brick.png";
+
+  int width, height, channels;
+  unsigned char* data =
+      stbi_load(path.string().c_str(), &width, &height, &channels, 0);
+
+  if (data) {
+    std::cout << "Image loaded" << std::endl;
+    stbi_image_free(data);
+  }
 
   m_scene = new eng::Scene();
   auto camera = m_scene->CreateObject("Camera");
