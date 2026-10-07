@@ -1,4 +1,5 @@
 #include "GameObject.hpp"
+#include "glm/gtc/quaternion.hpp"
 #include <glm/gtc/matrix_transform.hpp>
 
 namespace eng {
@@ -36,9 +37,9 @@ const glm::vec3& GameObject::GetPosition() const { return m_position; }
 
 void GameObject::SetPosition(const glm::vec3& pos) { m_position = pos; }
 
-const glm::vec3& GameObject::GetRotation() const { return m_rotation; }
+const glm::quat& GameObject::GetRotation() const { return m_rotation; }
 
-void GameObject::SetRotation(const glm::vec3& rot) { m_rotation = rot; }
+void GameObject::SetRotation(const glm::quat& rot) { m_rotation = rot; }
 
 const glm::vec3& GameObject::GetScale() const { return m_scale; }
 
@@ -52,9 +53,7 @@ glm::mat4 GameObject::GetLocalTransform() const {
   mat = glm::translate(mat, m_position);
 
   // rotation
-  mat = glm::rotate(mat, m_rotation.x, glm::vec3(1.0f, 0.0f, 0.0f)); // X-axis
-  mat = glm::rotate(mat, m_rotation.y, glm::vec3(0.0f, 1.0f, 0.0f)); // Y-axis
-  mat = glm::rotate(mat, m_rotation.z, glm::vec3(0.0f, 0.0f, 1.0f)); // Z-axis
+  mat = mat * glm::mat4_cast(m_rotation);
 
   mat = glm::scale(mat, m_scale);
 

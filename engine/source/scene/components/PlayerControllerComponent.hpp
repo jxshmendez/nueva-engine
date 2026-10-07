@@ -10,7 +10,7 @@ public:
   void Update(float deltaTime) override;
 
 private:
-  float m_sensitivity = 0.1f;
+  float m_sensitivity = 1.0f;
   float m_moveSpeed = 1.0f;
 };
 
