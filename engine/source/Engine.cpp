@@ -81,6 +81,7 @@ bool Engine::Init(int width, int height) {
   glfwSetMouseButtonCallback(m_window, mouseButtonCallback);
   glfwSetCursorPosCallback(m_window, cursorPositionCallback);
 
+  m_graphicsAPI.Init();
   return m_application->Init();
 }
 

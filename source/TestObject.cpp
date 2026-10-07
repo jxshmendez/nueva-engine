@@ -40,12 +40,34 @@ TestObject::TestObject() {
   auto material = std::make_shared<eng::Material>();
   material->SetShaderProgram(shaderProgram);
 
-  std::vector<float> vertices = {0.5f,  0.5f,  0.0f, 1.0f, 0.0f, 0.0f,
-                                 -0.5f, 0.5f,  0.0f, 0.0f, 1.0f, 0.0f,
-                                 -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f,
-                                 0.5f,  -0.5f, 0.0f, 1.0f, 1.0f, 0.0f};
+  std::vector<float> vertices = {
+      0.5f, 0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  -0.5f, 0.5f, 0.5f,
+      0.0f, 1.0f,  0.0f,  -0.5f, -0.5f, 0.5f,  0.0f,  0.0f, 1.0f,
+      0.5f, -0.5f, 0.5f,  1.0f,  1.0f,  0.0f,
 
-  std::vector<unsigned int> indices = {0, 1, 2, 0, 2, 3};
+      0.5f, 0.5f,  -0.5f, 1.0f,  0.0f,  0.0f,  -0.5f, 0.5f, -0.5f,
+      0.0f, 1.0f,  0.0f,  -0.5f, -0.5f, -0.5f, 0.0f,  0.0f, 1.0f,
+      0.5f, -0.5f, -0.5f, 1.0f,  1.0f,  0.0f
+
+  };
+
+  std::vector<unsigned int> indices = {// front face
+                                       0, 1, 2, 0, 2, 3,
+
+                                       // top face
+                                       4, 5, 1, 4, 1, 0,
+
+                                       // right face
+                                       4, 0, 3, 4, 3, 7,
+
+                                       // left face
+                                       1, 5, 6, 1, 6, 2,
+
+                                       // bottom face
+                                       3, 2, 6, 3, 6, 7,
+
+                                       // back face
+                                       4, 7, 6, 4, 6, 5};
 
   eng::VertexLayout vertexLayout;
 
