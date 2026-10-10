@@ -1,4 +1,5 @@
 #include "ShaderProgram.hpp"
+#include "graphics/Texture.hpp"
 #include <glm/gtc/type_ptr.hpp>
 
 namespace eng {
@@ -8,7 +9,11 @@ ShaderProgram::ShaderProgram(GLuint shaderProgramID)
 
 ShaderProgram::~ShaderProgram() { glDeleteProgram(m_shaderProgramID); }
 
-void ShaderProgram::Bind() { glUseProgram(m_shaderProgramID); }
+void ShaderProgram::Bind() {
+
+  glUseProgram(m_shaderProgramID);
+  m_currentTextureUnit = 0;
+}
 
 GLint ShaderProgram::GetUniformLocation(const std::string& name) {
 
@@ -37,6 +42,16 @@ void ShaderProgram::SetUniform(const std::string& name, const glm::mat4& mat) {
 
   auto location = GetUniformLocation(name);
   glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(mat));
+}
+
+void ShaderProgram::SetTexture(const std::string& name, Texture* texture) {
+
+  auto location = GetUniformLocation(name);
+
+  glActiveTexture(GL_TEXTURE0 + m_currentTextureUnit);
+  glBindTexture(GL_TEXTURE_2D, texture->GetID());
+  glUniform1i(location, m_currentTextureUnit);
+  ++m_currentTextureUnit;
 }
 
 } // namespace eng

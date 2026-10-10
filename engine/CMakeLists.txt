@@ -19,6 +19,8 @@ add_library(Engine
         source/graphics/ShaderProgram.cpp
         source/graphics/GraphicsAPI.hpp
         source/graphics/GraphicsAPI.cpp
+        source/graphics/Texture.hpp
+        source/graphics/Texture.cpp
         source/render/Material.hpp
         source/render/Material.cpp
         source/render/Mesh.hpp
