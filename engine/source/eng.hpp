@@ -4,6 +4,7 @@
 #include "Engine.hpp"
 #include "graphics/GraphicsAPI.hpp"
 #include "graphics/ShaderProgram.hpp"
+#include "graphics/Texture.hpp"
 #include "graphics/VertexLayout.hpp"
 #include "input/InputManager.hpp"
 #include "io/FileSystem.hpp"

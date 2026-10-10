@@ -16,6 +16,12 @@ void Material::SetParam(const std::string& name, float v0, float v1) {
   m_float2Params[name] = {v0, v1};
 }
 
+void Material::SetParam(const std::string& name,
+                        const std::shared_ptr<Texture> texture) {
+
+  m_textures[name] = texture;
+}
+
 ShaderProgram* Material::GetShaderProgram() { return m_shaderProgram.get(); }
 
 void Material::Bind() {
@@ -32,6 +38,11 @@ void Material::Bind() {
   for (auto& param : m_float2Params) {
     m_shaderProgram->SetUniform(param.first, param.second.first,
                                 param.second.second);
+  }
+
+  for (auto& texture : m_textures) {
+
+    m_shaderProgram->SetTexture(texture.first, texture.second.get());
   }
 }
 
