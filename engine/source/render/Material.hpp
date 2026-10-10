@@ -20,6 +20,8 @@ public:
                 const std::shared_ptr<Texture> texture);
   void Bind();
 
+  static std::shared_ptr<Material> Load(const std::string& path);
+
 private:
   std::shared_ptr<ShaderProgram> m_shaderProgram;
   std::unordered_map<std::string, float> m_floatParams;
