@@ -9,6 +9,7 @@ configure_file(
 )
 
 add_library(Engine
+        source/Common.hpp
         source/Engine.hpp
         source/Engine.cpp
         source/Application.hpp
@@ -39,6 +40,8 @@ add_library(Engine
         source/scene/components/CameraComponent.cpp
         source/scene/components/PlayerControllerComponent.hpp
         source/scene/components/PlayerControllerComponent.cpp
+        source/scene/components/LightComponent.hpp
+        source/scene/components/LightComponent.cpp
         source/eng.hpp
         source/io/FileSystem.hpp
         source/io/FileSystem.cpp
