@@ -7,6 +7,7 @@
 #include "render/RenderQueue.hpp"
 #include "scene/components/CameraComponent.hpp"
 #include <iostream>
+#include <vector>
 
 namespace eng {
 
@@ -108,6 +109,7 @@ void Engine::Run() {
     m_graphicsAPI.ClearBuffers();
 
     CameraData cameraData;
+    std::vector<LightData> lights;
 
     int width, height = 0;
     glfwGetWindowSize(m_window, &width, &height);
@@ -125,9 +127,11 @@ void Engine::Run() {
               cameraComponent->GetProjectionMatrix(aspect);
         }
       }
+
+      lights = m_currentScene->CollectLights();
     }
 
-    m_renderQueue.Draw(m_graphicsAPI, cameraData);
+    m_renderQueue.Draw(m_graphicsAPI, cameraData, lights);
 
     glfwSwapBuffers(m_window);
 

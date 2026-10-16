@@ -37,6 +37,13 @@ const glm::vec3& GameObject::GetPosition() const { return m_position; }
 
 void GameObject::SetPosition(const glm::vec3& pos) { m_position = pos; }
 
+glm::vec3 GameObject::GetWorldPosition() const {
+
+  glm::vec4 homCoordinates =
+      GetWorldTransform() * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+  return glm::vec3(homCoordinates) / homCoordinates.w;
+}
+
 const glm::quat& GameObject::GetRotation() const { return m_rotation; }
 
 void GameObject::SetRotation(const glm::quat& rot) { m_rotation = rot; }
