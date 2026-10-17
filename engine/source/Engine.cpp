@@ -125,6 +125,7 @@ void Engine::Run() {
           cameraData.viewMatrix = cameraComponent->GetViewMatrix();
           cameraData.projectionMatrix =
               cameraComponent->GetProjectionMatrix(aspect);
+          cameraData.position = cameraObject->GetWorldPosition();
         }
       }
 
@@ -161,6 +162,8 @@ GraphicsAPI& Engine::GetGraphicsAPI() { return m_graphicsAPI; }
 RenderQueue& Engine::GetRenderQueue() { return m_renderQueue; }
 
 FileSystem& Engine::GetFileSystem() { return m_fileSystem; }
+
+TextureManager& Engine::GetTextureManager() { return m_textureManager; }
 
 void Engine::SetScene(Scene* scene) { m_currentScene.reset(scene); }
 
