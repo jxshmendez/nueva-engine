@@ -10,6 +10,8 @@
 
 namespace eng {
 
+class Scene;
+
 class GameObject {
 
 public:
@@ -18,6 +20,8 @@ public:
   const std::string& GetName() const;
   void SetName(const std::string& name);
   GameObject* GetParent();
+  bool SetParent(GameObject* parent);
+  Scene* GetScene();
   bool isAlive();
   void MarkForDestroy();
 
@@ -52,12 +56,15 @@ public:
   glm::mat4 GetLocalTransform() const;
   glm::mat4 GetWorldTransform() const;
 
+  static GameObject* LoadGLTF(const std::string& path);
+
 protected:
   GameObject() = default;
 
 private:
   std::string m_name;
   GameObject* m_parent = nullptr;
+  Scene* m_scene = nullptr;
   std::vector<std::unique_ptr<GameObject>> m_children;
   std::vector<std::unique_ptr<Component>> m_components;
   bool m_isAlive = true;
