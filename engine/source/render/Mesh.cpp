@@ -8,9 +8,6 @@
 #include <memory>
 #include <vector>
 
-#define CGLTF_IMPLEMENTATION
-#include <cgltf.h>
-
 namespace eng {
 
 Mesh::Mesh(const VertexLayout& layout, const std::vector<float>& vertices,
@@ -154,6 +151,7 @@ std::shared_ptr<Mesh> Mesh::CreateCube() {
   return result;
 }
 
+#if 0
 std::shared_ptr<Mesh> Mesh::Load(const std::string& path) {
 
   auto contents = Engine::GetInstance().GetFileSystem().LoadAssetFileText(path);
@@ -319,5 +317,5 @@ std::shared_ptr<Mesh> Mesh::Load(const std::string& path) {
 
   return result;
 }
-
+#endif
 } // namespace eng
