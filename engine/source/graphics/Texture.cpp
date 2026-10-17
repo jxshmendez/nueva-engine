@@ -1,6 +1,7 @@
 #include "graphics/Texture.hpp"
 #include "Engine.hpp"
 #include "graphics/ShaderProgram.hpp"
+#include <ios>
 #include <stb_image.h>
 
 namespace eng {
@@ -26,7 +27,16 @@ void Texture::Init(int width, int height, int numChannels,
 
   glGenTextures(1, &m_textureID);
   glBindTexture(GL_TEXTURE_2D, m_textureID);
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB,
+
+  GLint internalFormat = GL_RGB;
+  GLenum format = GL_RGB;
+
+  if (numChannels == 4) {
+    internalFormat = GL_RGB;
+    format = GL_RGBA;
+  }
+
+  glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, width, height, 0, format,
                GL_UNSIGNED_BYTE, data);
   glGenerateMipmap(GL_TEXTURE_2D);
 
@@ -61,6 +71,18 @@ std::shared_ptr<Texture> Texture::Load(const std::string& path) {
   }
 
   return result;
+}
+
+std::shared_ptr<Texture>
+TextureManager::GetOrLoadTexture(const std::string& path) {
+  auto it = m_textures.find(path);
+  if (it != m_textures.end()) {
+    return it->second;
+  }
+
+  auto texture = Texture::Load(path);
+  m_textures[path] = texture;
+  return texture;
 }
 
 } // namespace eng

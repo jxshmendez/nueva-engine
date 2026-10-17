@@ -1,6 +1,7 @@
 #pragma once
 #include "Application.hpp"
 #include "graphics/GraphicsAPI.hpp"
+#include "graphics/Texture.hpp"
 #include "input/InputManager.hpp"
 #include "io/FileSystem.hpp"
 #include "render/RenderQueue.hpp"
@@ -34,6 +35,7 @@ public:
   GraphicsAPI& GetGraphicsAPI();
   RenderQueue& GetRenderQueue();
   FileSystem& GetFileSystem();
+  TextureManager& GetTextureManager();
 
   void SetScene(Scene* scene);
   Scene* GetScene();
@@ -46,6 +48,7 @@ private:
   GraphicsAPI m_graphicsAPI;
   RenderQueue m_renderQueue;
   FileSystem m_fileSystem;
+  TextureManager m_textureManager;
   std::unique_ptr<Scene> m_currentScene;
 };
 } // namespace eng
