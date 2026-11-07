@@ -42,6 +42,8 @@ add_library(Engine
         source/scene/components/PlayerControllerComponent.cpp
         source/scene/components/LightComponent.hpp
         source/scene/components/LightComponent.cpp
+        source/scene/components/AnimationComponent.hpp
+        source/scene/components/AnimationComponent.cpp
         source/eng.hpp
         source/io/FileSystem.hpp
         source/io/FileSystem.cpp
